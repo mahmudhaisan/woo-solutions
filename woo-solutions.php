@@ -25,11 +25,14 @@ if (!defined('ABSPATH')) {
 
 final class Woo_Solutions_Class {
 
+    const VERSION = '1.0';
+
     /**
      * Class Constructor
      */
 
     private function __construct() {
+        $this->define_Plugin_comstants();
 
     }
 
@@ -37,7 +40,7 @@ final class Woo_Solutions_Class {
      * Initialize Singleton Instance
      */
 
-    static function init() {
+    public static function init() {
         static $instance = false;
 
         if (!$instance) {
@@ -45,6 +48,19 @@ final class Woo_Solutions_Class {
         }
 
         return $instance;
+    }
+
+    /**
+     * Define Plugin Constants
+     */
+
+    public function define_Plugin_comstants() {
+
+        define('WOO_SOLUTIONS_VERSION', self::VERSION);
+        define('WOO_SOLUTIONS_FILE', __FILE__);
+        define('WOO_SOLUTIONS_PATH', __DIR__);
+        define('WOO_SOLUTIONS_URL', plugins_url('', WOO_SOLUTIONS_FILE));
+        define('WOO_SOLUTIONS_ASSETS', WOO_SOLUTIONS_URL . '/assets');
     }
 
 }
