@@ -16,14 +16,25 @@
  */
 
 if (!defined('ABSPATH')) {
-    die;
+    exit;
 }
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+
+
+
 
 /**
  * The Main Plugin Class
  */
 
 final class Woo_Solutions_Class {
+
+    /**
+     * plugin version
+     * @var string
+     */
 
     const VERSION = '1.0';
 
@@ -32,8 +43,10 @@ final class Woo_Solutions_Class {
      */
 
     private function __construct() {
-        $this->define_Plugin_comstants();
 
+        $this->define_Plugin_comstants();
+        register_activation_hook(__FILE__, [$this, 'activate']); // activation hook
+        add_action('plugins_loaded', [$this, 'init_plugin']);
     }
 
     /**
@@ -63,7 +76,32 @@ final class Woo_Solutions_Class {
         define('WOO_SOLUTIONS_ASSETS', WOO_SOLUTIONS_URL . '/assets');
     }
 
+
+
+
+    /**
+     * plugin activation callback function
+     *
+     * @return void
+     */
+    public function activate() {
+
+        update_option('woo_solutions_version', WOO_SOLUTIONS_VERSION);
+    }
+
+    /**
+     * plugins activity after activating the plugin
+     *
+     * @return plugins basic things
+     */
+    public function init_plugin() {
+
+        new  Woo\Solutions\Admin\Menu(); // admin menu class initialize
+    }
 }
+
+
+
 
 /**
  * Initialize Main Plugin
@@ -74,7 +112,6 @@ final class Woo_Solutions_Class {
 function woo_solutions() {
 
     return Woo_Solutions_Class::init();
-
 }
 
 // calling the main class instance
