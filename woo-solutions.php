@@ -96,7 +96,13 @@ final class Woo_Solutions_Class {
      */
     public function init_plugin() {
 
-        new  Woo\Solutions\Admin\Menu(); // admin menu class initialize
+
+        // works for backend
+        if (is_admin()) {
+            new  Woo\Solutions\Admin(); // admin menu class initialize
+        } else {
+            new  Woo\Solutions\Frontend(); // Frontend class initialize
+        }
     }
 }
 
