@@ -16,6 +16,6 @@ class Menu {
     }
 
     public function plugin_page() {
-        echo 'hello';
+        echo 'bangladdesh';
     }
 }
