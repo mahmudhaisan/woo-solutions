@@ -31,28 +31,26 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 final class Woo_Solutions_Class {
 
+
+
     /**
-     * plugin version
+     *  * plugin version
      * @var string
      */
-
     const VERSION = '1.0';
 
     /**
      * Class Constructor
      */
-
     private function __construct() {
-
         $this->define_Plugin_comstants();
         register_activation_hook(__FILE__, [$this, 'activate']); // activation hook
-        add_action('plugins_loaded', [$this, 'init_plugin']);
+        add_action('plugins_loaded', [$this, 'init_plugin']); //plugin init
     }
 
     /**
      * Initialize Singleton Instance
      */
-
     public static function init() {
         static $instance = false;
 
@@ -66,17 +64,13 @@ final class Woo_Solutions_Class {
     /**
      * Define Plugin Constants
      */
-
     public function define_Plugin_comstants() {
-
         define('WOO_SOLUTIONS_VERSION', self::VERSION);
         define('WOO_SOLUTIONS_FILE', __FILE__);
         define('WOO_SOLUTIONS_PATH', __DIR__);
         define('WOO_SOLUTIONS_URL', plugins_url('', WOO_SOLUTIONS_FILE));
         define('WOO_SOLUTIONS_ASSETS', WOO_SOLUTIONS_URL . '/assets');
     }
-
-
 
 
     /**
@@ -95,18 +89,14 @@ final class Woo_Solutions_Class {
      * @return plugins basic things
      */
     public function init_plugin() {
-
-
         // works for backend
         if (is_admin()) {
             new  Woo\Solutions\Admin(); // admin menu class initialize
-        } else {
+        } else { // for elsewhere
             new  Woo\Solutions\Frontend(); // Frontend class initialize
         }
     }
 }
-
-
 
 
 /**
@@ -116,7 +106,6 @@ final class Woo_Solutions_Class {
  */
 
 function woo_solutions() {
-
     return Woo_Solutions_Class::init();
 }
 
